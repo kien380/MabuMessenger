@@ -15,7 +15,8 @@ public class ServerFrame extends javax.swing.JFrame {
     public JFileChooser fileChooser;
     
     public ServerFrame() {
-        initComponents();     
+        initComponents();   
+        this.setTitle("Server");
         jTextField3.setEditable(false);
         jTextField3.setBackground(Color.WHITE);
         

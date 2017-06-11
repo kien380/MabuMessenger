@@ -2,12 +2,22 @@ package com.socket;
 
 import com.ui.ChatFrame;
 import com.ui.LoginFrame;
+import com.ui.MessageBox;
 import java.io.*;
 import java.net.*;
 import java.util.Date;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
+
+import java.io.PrintWriter;
+import javax.sound.sampled.*;
 
 public class SocketClient implements Runnable{
     
@@ -42,10 +52,16 @@ public class SocketClient implements Runnable{
                 
                 if(msg.type.equals("message")){
                     if(msg.recipient.equals(chatUI.username)){
-                        chatUI.jTextArea1.append("["+msg.sender +" > Me] : " + msg.content + "\n");
+                        chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
+                        JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
+                        int maximum = scroll.getMaximum();
+                        scroll.setValue(maximum);
                     }
                     else{
-                        chatUI.jTextArea1.append("["+ msg.sender +" > "+ msg.recipient +"] : " + msg.content + "\n");
+                        chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
+                        JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
+                        int maximum = scroll.getMaximum();
+                        scroll.setValue(maximum);
                     }
                                             
                     if(!msg.content.equals(".bye") && !msg.sender.equals(chatUI.username)){
@@ -62,10 +78,10 @@ public class SocketClient implements Runnable{
                 else if(msg.type.equals("login")){
                     if(msg.content.equals("TRUE")){                        
                         chatUI.jButton4.setEnabled(true); 
-                        chatUI.jTextArea1.append("[SERVER > Me] : Login Successful\n");
+                        System.out.println("[SERVER > Me] : Login Successful\n");
                     }
                     else{
-                        chatUI.jTextArea1.append("[SERVER > Me] : Login Failed\n");
+                        System.out.println("[SERVER > Me] : Login Failed\n");
                         // Back to login frame
                         loginUI.setVisible(true);
                         chatUI.setVisible(false);
@@ -92,15 +108,15 @@ public class SocketClient implements Runnable{
                 else if(msg.type.equals("signup")){
                     if(msg.content.equals("TRUE")){
                         chatUI.jButton4.setEnabled(true);
-                        chatUI.jTextArea1.append("[SERVER > Me] : Singup Successful\n");
+                        System.out.println("[SERVER > Me] : Singup Successful\n");
                     }
                     else{
-                        chatUI.jTextArea1.append("[SERVER > Me] : Signup Failed\n");
+                        System.out.println("[SERVER > Me] : Signup Failed\n");
                     }
                 }
                 else if(msg.type.equals("signout")){
                     if(msg.content.equals(chatUI.username)){
-                        chatUI.jTextArea1.append("["+ msg.sender +" > Me] : Bye\n");
+                        System.out.println("["+ msg.sender +" > Me] : Bye\n");
                         chatUI.jButton4.setEnabled(false); 
                         
                         for(int i = 1; i < chatUI.model.size(); i++){
@@ -111,7 +127,7 @@ public class SocketClient implements Runnable{
                     }
                     else{
                         chatUI.model.removeElement(msg.content);
-                        chatUI.jTextArea1.append("["+ msg.sender +" > All] : "+ msg.content +" has signed out\n");
+                        System.out.println("["+ msg.sender +" > All] : "+ msg.content +" has signed out\n");
                     }
                 }
                 else if(msg.type.equals("upload_req")){
@@ -149,16 +165,35 @@ public class SocketClient implements Runnable{
                         t.start();
                     }
                     else{
-                        chatUI.jTextArea1.append("[SERVER > Me] : "+msg.sender+" rejected file request\n");
+                        System.out.println("[SERVER > Me] : "+msg.sender+" rejected file request\n");
                     }
                 }
+                else if(msg.type.equals("sound")) {                    
+                    try { 
+                        // Open an audio input stream.           
+                        File soundFile = new File("src/com/resource/sound/" + msg.content + ".wav");
+                        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
+                        // Get a sound clip resource.
+                        Clip clip = AudioSystem.getClip();
+                        // Open audio clip and load samples from the audio input stream.
+                        clip.open(audioIn);
+                        clip.start();
+                    } catch (UnsupportedAudioFileException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (LineUnavailableException e) {
+                        e.printStackTrace();
+                    }
+                    
+                }
                 else{
-                    chatUI.jTextArea1.append("[SERVER > Me] : Unknown message type\n");
+                    System.out.println("[SERVER > Me] : Unknown message type\n");
                 }
             }
             catch(Exception ex) {
                 keepRunning = false;
-                chatUI.jTextArea1.append("[Application > Me] : Connection Failure\n");
+                System.out.println("[Application > Me] : Connection Failure\n");
                 chatUI.jButton4.setEnabled(false);
                 
                 for(int i = 1; i < chatUI.model.size(); i++){
