@@ -5,7 +5,10 @@
  */
 package com.ui;
 
+import java.awt.Color;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -22,9 +25,22 @@ public class MessageBox extends javax.swing.JPanel {
         
         init();
         
+        String mess = "";
+        for(int i = message.length() - 1; i >= 0; i--)
+        {
+            
+        }
         
         labelMessage.setText(message);
-        labelSender.setText(sender + " > " + recipient + " :");
+        labelSender.setText(sender + " :");      
+        
+        if(sender.equals(username))
+        {
+            labelSender.setText("Me > " + recipient + " :");   
+            labelMessage.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+            this.setAlignmentX(JPanel.RIGHT_ALIGNMENT);
+            panelMessageBox.setBackground(new Color(94,138,198));
+        }
     }
 
     private void init()
@@ -45,11 +61,15 @@ public class MessageBox extends javax.swing.JPanel {
         panelMessageBox = new javax.swing.JPanel();
         labelMessage = new javax.swing.JLabel();
 
+        setAlignmentX(0.0F);
+        setAlignmentY(0.0F);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
         setOpaque(false);
 
         labelSender.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
         labelSender.setForeground(new java.awt.Color(153, 153, 153));
         labelSender.setText("jLabel1");
+        labelSender.setAlignmentY(0.0F);
 
         panelMessageBox.setBackground(new java.awt.Color(153, 0, 153));
         panelMessageBox.setForeground(new java.awt.Color(153, 0, 153));
@@ -61,35 +81,30 @@ public class MessageBox extends javax.swing.JPanel {
         panelMessageBox.setLayout(panelMessageBoxLayout);
         panelMessageBoxLayout.setHorizontalGroup(
             panelMessageBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMessageBoxLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMessageBoxLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelMessage)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelMessageBoxLayout.setVerticalGroup(
             panelMessageBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMessageBoxLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelMessage)
-                .addContainerGap())
+            .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelSender)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelMessageBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labelSender)
+            .addComponent(panelMessageBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(labelSender)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(labelSender, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(panelMessageBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents

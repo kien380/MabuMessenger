@@ -34,6 +34,7 @@ public class ChatFrame extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Chat box - " + username);
         this.ChatPanel.setLayout(new BoxLayout(ChatPanel, BoxLayout.Y_AXIS));
+        this.ChatPanel.setSize(407, 264);
         
         model.addElement("All");
         jList1.setSelectedIndex(0);
@@ -232,14 +233,15 @@ public class ChatFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonBuzz, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonSmile, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(ScrollChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                        .addComponent(buttonSmile, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 49, Short.MAX_VALUE))
+                                    .addComponent(ScrollChatPanel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel8))))
-                        .addGap(0, 24, Short.MAX_VALUE)))
+                        .addGap(24, 24, 24)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -336,11 +338,13 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonStickerActionPerformed
 
     private void buttonYahooActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYahooActionPerformed
-        // TODO add your handling code here:
+        String target = jList1.getSelectedValue().toString();
+        client.send(new Message("sound", username, "yahoo", target));
     }//GEN-LAST:event_buttonYahooActionPerformed
 
     private void buttonKnockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKnockActionPerformed
-        // TODO add your handling code here:
+        String target = jList1.getSelectedValue().toString();
+        client.send(new Message("sound", username, "knock", target));
     }//GEN-LAST:event_buttonKnockActionPerformed
 
     private void buttonBuzzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuzzActionPerformed
