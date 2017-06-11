@@ -30,7 +30,7 @@ class ServerThread extends Thread {
             System.out.println("Exception [SocketClient : send(...)]");
         }
     }
-    
+        
     public int getID(){  
 	    return ID;
     }
@@ -218,6 +218,9 @@ public class SocketServer implements Runnable {
                 else{
                     findUserThread(msg.recipient).send(new Message("upload_res", msg.sender, msg.content, msg.recipient));
                 }
+            } 
+            else if(msg.type.equals("sound")) {
+                playSound(msg.sender, msg.content, msg.recipient);
             }
 	}
     }
@@ -282,5 +285,12 @@ public class SocketServer implements Runnable {
 	else{
             ui.jTextArea1.append("\nClient refused: maximum " + clients.length + " reached.");
 	}
+    }
+    
+    public void playSound(String sender, String content, String recipient){
+        Message msg = new Message("sound", sender, content, recipient);
+        for(int i = 0; i < clientCount; i++){
+            clients[i].send(msg);
+        }
     }
 }

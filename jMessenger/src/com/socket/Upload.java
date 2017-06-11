@@ -40,7 +40,7 @@ public class Upload implements Runnable{
             }
             Out.flush();
             
-            ui.jTextArea1.append("[Applcation > Me] : File upload complete\n");
+            System.out.println("[Applcation > Me] : File upload complete\n");
             
             if(In != null){ In.close(); }
             if(Out != null){ Out.close(); }

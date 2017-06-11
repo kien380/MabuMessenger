@@ -12,6 +12,7 @@ public class HistoryFrame extends javax.swing.JFrame {
     
     public HistoryFrame(History hist){
         initComponents();
+        this.setTitle("History");
         this.hist = hist;
         hist.FillTable(this);
     }

@@ -3,13 +3,17 @@ package com.ui;
 import com.socket.History;
 import com.socket.Message;
 import com.socket.SocketClient;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import oracle.jrockit.jfr.JFR;
 
@@ -28,7 +32,9 @@ public class ChatFrame extends javax.swing.JFrame {
     
     public ChatFrame() {
         initComponents();
-        this.setTitle("jMessenger");
+        this.setTitle("Chat box - " + username);
+        this.ChatPanel.setLayout(new BoxLayout(ChatPanel, BoxLayout.Y_AXIS));
+        
         model.addElement("All");
         jList1.setSelectedIndex(0);
         
@@ -61,8 +67,6 @@ public class ChatFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jTextField4 = new javax.swing.JTextField();
@@ -80,13 +84,10 @@ public class ChatFrame extends javax.swing.JFrame {
         buttonSmile = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        ScrollChatPanel = new javax.swing.JScrollPane();
+        ChatPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
 
         jList1.setModel((model = new DefaultListModel()));
         jScrollPane2.setViewportView(jList1);
@@ -94,6 +95,11 @@ public class ChatFrame extends javax.swing.JFrame {
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
+            }
+        });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
             }
         });
 
@@ -175,6 +181,19 @@ public class ChatFrame extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("© Mabu Messenger!");
 
+        javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
+        ChatPanel.setLayout(ChatPanelLayout);
+        ChatPanelLayout.setHorizontalGroup(
+            ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ChatPanelLayout.setVerticalGroup(
+            ChatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        ScrollChatPanel.setViewportView(ChatPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,7 +219,6 @@ public class ChatFrame extends javax.swing.JFrame {
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(buttonAttachments, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,13 +232,14 @@ public class ChatFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonBuzz, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonSmile, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
+                                        .addComponent(buttonSmile, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(ScrollChatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel8))))
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                        .addGap(0, 24, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -236,8 +255,8 @@ public class ChatFrame extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(ScrollChatPanel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,12 +344,19 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonKnockActionPerformed
 
     private void buttonBuzzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuzzActionPerformed
-        // TODO add your handling code here:
+        String target = jList1.getSelectedValue().toString();
+        client.send(new Message("sound", username, "buzz", target));
     }//GEN-LAST:event_buttonBuzzActionPerformed
 
     private void buttonSmileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSmileActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonSmileActionPerformed
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            sendMessage();
+        }
+    }//GEN-LAST:event_jTextField4KeyPressed
 
     public static void main(String args[]) {
         try {
@@ -354,7 +380,7 @@ public class ChatFrame extends javax.swing.JFrame {
             client.send(new Message("upload_req", username, file.getName(), jList1.getSelectedValue().toString()));
         }
         else{
-            jTextArea1.append("[Application > Me] : File is size too large\n");
+            System.out.println("[Application > Me] : File is size too large\n");
         }
     }
     
@@ -377,7 +403,10 @@ public class ChatFrame extends javax.swing.JFrame {
             client.send(new Message("login", username, password, "SERVER"));
         }
         catch(Exception ex){
-            jTextArea1.append("[Application > Me] : Server not found\n");
+            System.out.println("[Application > Me] : Server not found\n");            
+            // Back to login frame
+            this.setVisible(false);
+            loginUI.setVisible(true);
         }
     }
     
@@ -391,6 +420,8 @@ public class ChatFrame extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel ChatPanel;
+    public javax.swing.JScrollPane ScrollChatPanel;
     private javax.swing.JButton buttonAttachments;
     private javax.swing.JButton buttonBuzz;
     private javax.swing.JButton buttonHistory;
@@ -405,10 +436,8 @@ public class ChatFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     public javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    public javax.swing.JTextArea jTextArea1;
     public javax.swing.JTextField jTextField4;
     public javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables

@@ -26,6 +26,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame(ChatFrame chatFrame) {
         initComponents();
+        this.setTitle("Login");
         this.chatUI = chatFrame;
         chatUI.loginUI = this;
         setSize(420, 630);
