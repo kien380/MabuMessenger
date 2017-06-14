@@ -62,11 +62,13 @@ public class SocketClient implements Runnable{
                         String msgTime = (new Date()).toString();
                         
                         try{
-                            hist.addMessage(msg, msgTime);
+                            chatUI.hist.addMessage(msg, msgTime);
                             DefaultTableModel table = (DefaultTableModel) chatUI.historyFrame.jTable1.getModel();
-                            table.addRow(new Object[]{msg.sender, msg.content, "Me", msgTime});
+                            table.addRow(new Object[]{msg.sender, msg.content, msg.recipient, msgTime});
                         }
-                        catch(Exception ex){}  
+                        catch(Exception ex){
+                            System.out.println("Write to history error");
+                        }  
                     }
                 }
                 else if(msg.type.equals("login")){
@@ -86,7 +88,7 @@ public class SocketClient implements Runnable{
                     }
                 }
                 else if(msg.type.equals("test")){
-                    chatUI.jButton7.setEnabled(true);
+                    
                 }
                 else if(msg.type.equals("newuser")){
                     if(!msg.content.equals(chatUI.username)){

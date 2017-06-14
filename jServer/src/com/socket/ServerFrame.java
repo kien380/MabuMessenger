@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 
@@ -11,11 +12,13 @@ public class ServerFrame extends javax.swing.JFrame {
 
     public SocketServer server;
     public Thread serverThread;
-    public String filePath = "D:/Data.xml";
+    public String filePath = "com/data/Data.xml";
     public JFileChooser fileChooser;
     
     public ServerFrame() {
         initComponents();   
+        setIconImage(new ImageIcon(getClass().getResource("/com/drawable/icon/mmessenger_logo.png")).getImage());
+        setLocationRelativeTo(null);
         this.setTitle("Server");
         jTextField3.setEditable(false);
         jTextField3.setBackground(Color.WHITE);

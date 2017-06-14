@@ -9,9 +9,12 @@ import com.socket.History;
 import com.socket.Message;
 import com.socket.SocketClient;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,6 +30,14 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame(ChatFrame chatFrame) {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/com/resource/drawable/icon/mmessenger_logo.png")).getImage());
+        
+        // Set location
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = screenSize.width - 420;
+        int y = screenSize.height/2 - 630 / 2 - 40;
+        setLocation(x, y);
+        
         this.buttonLogin.setBackground(new Color(153,0,153));
         this.setTitle("Login");
         this.chatUI = chatFrame;

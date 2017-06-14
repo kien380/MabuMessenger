@@ -46,7 +46,7 @@ public class MessageBox extends javax.swing.JPanel {
         {
             String icon = message.substring(9);
             labelMessage.setText("");
-            labelMessage.setIcon(new ImageIcon(getClass().getResource("/com/resource/drawable/icon/" + icon)));
+            labelMessage.setIcon(new ImageIcon(getClass().getResource("/com/resource/drawable/sticker/" + icon)));
             panelMessageBox.setBackground(new Color(255,255,255,0));
         } else {      
             if(message.length() > 50) {
@@ -61,7 +61,7 @@ public class MessageBox extends javax.swing.JPanel {
                 }
                 labelMessage.setText(enterMessage);  
             } else {
-                labelMessage.setText("message");  
+                labelMessage.setText(message);  
             }
         }
     }
