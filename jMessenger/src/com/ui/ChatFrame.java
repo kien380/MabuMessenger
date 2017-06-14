@@ -190,6 +190,8 @@ public class ChatFrame extends javax.swing.JFrame {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(10, 45, 579, 10);
 
+        jScrollPane2.setOpaque(false);
+
         jList1.setModel((model = new DefaultListModel()));
         jScrollPane2.setViewportView(jList1);
 
@@ -315,6 +317,8 @@ public class ChatFrame extends javax.swing.JFrame {
         getContentPane().add(jLabel8);
         jLabel8.setBounds(467, 409, 98, 14);
 
+        ScrollChatPanel.setOpaque(false);
+
         javax.swing.GroupLayout ChatPanelLayout = new javax.swing.GroupLayout(ChatPanel);
         ChatPanel.setLayout(ChatPanelLayout);
         ChatPanelLayout.setHorizontalGroup(
@@ -332,7 +336,7 @@ public class ChatFrame extends javax.swing.JFrame {
         ScrollChatPanel.setBounds(10, 66, 407, 264);
 
         background.setBackground(new java.awt.Color(153, 0, 153));
-        background.setOpaque(true);
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/resource/drawable/bacground/chat_background.png"))); // NOI18N
         getContentPane().add(background);
         background.setBounds(0, 0, 600, 440);
 

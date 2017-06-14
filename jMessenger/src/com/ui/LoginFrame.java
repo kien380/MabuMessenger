@@ -8,6 +8,7 @@ package com.ui;
 import com.socket.History;
 import com.socket.Message;
 import com.socket.SocketClient;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.DefaultListModel;
@@ -26,6 +27,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame(ChatFrame chatFrame) {
         initComponents();
+        this.buttonLogin.setBackground(new Color(153,0,153));
         this.setTitle("Login");
         this.chatUI = chatFrame;
         chatUI.loginUI = this;
@@ -86,9 +88,11 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/resource/drawable/icon/port.png"))); // NOI18N
 
         buttonLogin.setBackground(new java.awt.Color(153, 0, 153));
-        buttonLogin.setFont(new java.awt.Font("Yahoo", 0, 11)); // NOI18N
-        buttonLogin.setForeground(new java.awt.Color(255, 255, 255));
+        buttonLogin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        buttonLogin.setForeground(new java.awt.Color(153, 0, 153));
         buttonLogin.setText("Login");
+        buttonLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonLogin.setBorderPainted(false);
         buttonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonLoginActionPerformed(evt);
