@@ -14,10 +14,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 import java.io.PrintWriter;
 import javax.sound.sampled.*;
+import javax.swing.ImageIcon;
 
 public class SocketClient implements Runnable{
     
@@ -51,18 +53,10 @@ public class SocketClient implements Runnable{
                 System.out.println("Incoming : "+msg.toString());
                 
                 if(msg.type.equals("message")){
-                    if(msg.recipient.equals(chatUI.username)){
-                        chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
-                        JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
-                        int maximum = scroll.getMaximum();
-                        scroll.setValue(maximum);
-                    }
-                    else{
-                        chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
-                        JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
-                        int maximum = scroll.getMaximum();
-                        scroll.setValue(maximum);
-                    }
+                    chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
+                    JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
+                    int maximum = scroll.getMaximum();
+                    scroll.setValue(maximum);
                                             
                     if(!msg.content.equals(".bye") && !msg.sender.equals(chatUI.username)){
                         String msgTime = (new Date()).toString();
@@ -170,14 +164,17 @@ public class SocketClient implements Runnable{
                 }
                 else if(msg.type.equals("sound")) {                    
                     try { 
-                        // Open an audio input stream.           
-                        File soundFile = new File("src/com/resource/sound/" + msg.content + ".wav");
-                        AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
-                        // Get a sound clip resource.
-                        Clip clip = AudioSystem.getClip();
-                        // Open audio clip and load samples from the audio input stream.
-                        clip.open(audioIn);
-                        clip.start();
+                        if(msg.recipient.equals(chatUI.username) || msg.recipient.equals("All"))
+                        {
+                            // Open an audio input stream.           
+                            File soundFile = new File("src/com/resource/sound/" + msg.content + ".wav");
+                            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
+                            // Get a sound clip resource.
+                            Clip clip = AudioSystem.getClip();
+                            // Open audio clip and load samples from the audio input stream.
+                            clip.open(audioIn);
+                            clip.start();
+                        }
                     } catch (UnsupportedAudioFileException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -186,6 +183,12 @@ public class SocketClient implements Runnable{
                         e.printStackTrace();
                     }
                     
+                }
+                else if(msg.type.equals("sticker")) {
+                    chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
+                    JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
+                    int maximum = scroll.getMaximum();
+                    scroll.setValue(maximum);
                 }
                 else{
                     System.out.println("[SERVER > Me] : Unknown message type\n");

@@ -7,6 +7,7 @@ package com.ui;
 
 import java.awt.Color;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -25,21 +26,43 @@ public class MessageBox extends javax.swing.JPanel {
         
         init();
         
-        String mess = "";
-        for(int i = message.length() - 1; i >= 0; i--)
-        {
-            
-        }
-        
-        labelMessage.setText(message);
-        labelSender.setText(sender + " :");      
         
         if(sender.equals(username))
         {
             labelSender.setText("Me > " + recipient + " :");   
-            labelMessage.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
-            this.setAlignmentX(JPanel.RIGHT_ALIGNMENT);
+//            labelMessage.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+//            this.setAlignmentX(JPanel.RIGHT_ALIGNMENT);            
             panelMessageBox.setBackground(new Color(94,138,198));
+        } else {   
+            if(recipient.equals(username)) {                
+                labelSender.setText(sender + " > Me :"); 
+            } else {
+                labelSender.setText(sender + " :"); 
+            }
+        }
+        
+        
+        if(message.contains("Sticker::"))
+        {
+            String icon = message.substring(9);
+            labelMessage.setText("");
+            labelMessage.setIcon(new ImageIcon(getClass().getResource("/com/resource/drawable/icon/" + icon)));
+            panelMessageBox.setBackground(new Color(255,255,255,0));
+        } else {      
+            if(message.length() > 50) {
+                // Auto enter if message too long
+                String enterMessage = "";
+                for(int i = 0; i < message.length(); i++)
+                {
+                    enterMessage += message.charAt(i);
+                    if(i % 50 == 0 && i > 0) {
+                        enterMessage += '\n';
+                    }
+                }
+                labelMessage.setText(enterMessage);  
+            } else {
+                labelMessage.setText("message");  
+            }
         }
     }
 

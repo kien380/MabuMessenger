@@ -221,6 +221,9 @@ public class SocketServer implements Runnable {
             } 
             else if(msg.type.equals("sound")) {
                 playSound(msg.sender, msg.content, msg.recipient);
+            } 
+            else if(msg.type.equals("sticker")) {
+                showSticker(msg.sender, msg.content, msg.recipient);
             }
 	}
     }
@@ -289,6 +292,13 @@ public class SocketServer implements Runnable {
     
     public void playSound(String sender, String content, String recipient){
         Message msg = new Message("sound", sender, content, recipient);
+        for(int i = 0; i < clientCount; i++){
+            clients[i].send(msg);
+        }
+    }
+    
+    public void showSticker(String sender, String content, String recipient){
+        Message msg = new Message("sticker", sender, content, recipient);
         for(int i = 0; i < clientCount; i++){
             clients[i].send(msg);
         }
