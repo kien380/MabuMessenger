@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/MessageBox.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/ChatFrame.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/socket/SocketClient.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/socket/Upload.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/socket/History.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/HistoryFrame.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/StickerView.java</file>
-            <file>file:/E:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/LoginFrame.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/socket/SocketClient.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/resource/data/History.xml</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/MessageBox.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/socket/Message.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/HistoryFrame.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/ChatFrame.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/socket/History.java</file>
+            <file>file:/D:/Git/JAVA/MabuMessenger/jMessenger/src/com/ui/LoginFrame.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,6 +1,7 @@
 package com.ui;
 
 import com.socket.History;
+import javax.swing.ImageIcon;
 
 public class HistoryFrame extends javax.swing.JFrame {
     
@@ -12,6 +13,8 @@ public class HistoryFrame extends javax.swing.JFrame {
     
     public HistoryFrame(History hist){
         initComponents();
+        
+        setIconImage(new ImageIcon(getClass().getResource("/com/resource/drawable/icon/mmessenger_logo.png")).getImage());
         this.setTitle("History");
         this.hist = hist;
         hist.FillTable(this);
