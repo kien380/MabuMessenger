@@ -3,6 +3,7 @@ package com.socket;
 import com.ui.ChatFrame;
 import com.ui.LoginFrame;
 import com.ui.MessageBox;
+import java.awt.Rectangle;
 import java.io.*;
 import java.net.*;
 import java.util.Date;
@@ -54,9 +55,13 @@ public class SocketClient implements Runnable{
                 
                 if(msg.type.equals("message")){
                     chatUI.ChatPanel.add(new MessageBox(msg.sender, msg.recipient, msg.content, chatUI.username));
-                    JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
-                    int maximum = scroll.getMaximum();
-                    scroll.setValue(maximum);
+//                    JScrollBar scroll = chatUI.ScrollChatPanel.getVerticalScrollBar();
+//                    int maximum = scroll.getMaximum();
+//                    scroll.setValue(maximum);
+                    
+                    int height = (int)chatUI.ChatPanel.getPreferredSize().getHeight();
+                    Rectangle rect = new Rectangle(0,height,10,10);
+                    chatUI.ChatPanel.scrollRectToVisible(rect);
                                             
                     if(!msg.content.equals(".bye") && !msg.sender.equals(chatUI.username)){
                         String msgTime = (new Date()).toString();

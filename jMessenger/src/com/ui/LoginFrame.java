@@ -34,8 +34,8 @@ public class LoginFrame extends javax.swing.JFrame {
         
         // Set location
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = screenSize.width - 420;
-        int y = screenSize.height/2 - 630 / 2 - 40;
+        int x = (screenSize.width - 420)/2;
+        int y = (screenSize.height - 630) / 2 - 40;
         setLocation(x, y);
         
         this.buttonLogin.setBackground(new Color(153,0,153));
@@ -111,6 +111,11 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         tfIPAddress.setText("localhost");
+        tfIPAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfIPAddressKeyPressed(evt);
+            }
+        });
 
         tfUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +246,12 @@ public class LoginFrame extends javax.swing.JFrame {
             login();
         }
     }//GEN-LAST:event_pfPasswordKeyPressed
+
+    private void tfIPAddressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIPAddressKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_tfIPAddressKeyPressed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogin;
